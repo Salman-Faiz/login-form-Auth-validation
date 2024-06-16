@@ -5,7 +5,7 @@ import auth from '../../firebase/firebase.config';
 
 const Register = () => {
   // declare state to catch existing user/error
-  const [existingEmailError, setExistingEmailError] = useState('')
+  const [registerError, setRegisterError] = useState('')
   const [successMessege, setSuccessMessege] = useState('')
   const handleRegister = e => {
     e.preventDefault();
@@ -15,10 +15,29 @@ const Register = () => {
 
     console.log(email, password);
 
-    // reset error
-  setExistingEmailError('');
-  // reset success messege
-  setSuccessMessege('');
+
+   // reset error
+   setRegisterError('');
+   // reset success messege
+   setSuccessMessege('');
+
+   
+    // password validation
+    // 
+    if(password.length < 6){
+
+      setRegisterError('password should be 6 characters or long')
+      return;
+
+    }
+    // Example:-   /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/
+    else if(!/[A-Z]/.test(password)){
+      setRegisterError('Use at least one UPPER case character')
+      return;
+    }
+
+
+ 
 
     // create user using firebase
     createUserWithEmailAndPassword(auth, email, password)
@@ -34,7 +53,7 @@ const Register = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.error(errorMessage)
-        setExistingEmailError(errorMessage);
+        setRegisterError(errorMessage);
         // ..
       });
   }
@@ -45,14 +64,14 @@ const Register = () => {
         <h3 className="pt-8  text-3xl font-semibold">Please Register</h3>
         <form onSubmit={handleRegister} className="py-10 space-y-5">
           <input className="border text-2xl px-4 py-2 rounded-md" type="text" name='name' placeholder='Name' /><br />
-          <input className="border text-2xl px-4 py-2 rounded-md" type="email" name="email" placeholder="Email" /> <br />
-          <input className="border text-2xl px-4 py-2 rounded-md" type="password" name="password" placeholder="password" /> <br />
+          <input className="border text-2xl px-4 py-2 rounded-md" type="email" name="email" placeholder="Email" required /> <br />
+          <input className="border text-2xl px-4 py-2 rounded-md" type="password" name="password" placeholder="password" required /> <br />
           <input className="border btn btn-primary text-2xl" type="submit" value="submit" />
 
 
         </form>
         {
-          existingEmailError && <p className='text-red-700 text-2xl'>{existingEmailError}</p>
+          registerError && <p className='text-red-700 text-2xl'>{registerError}</p>
         }
         {
           successMessege && <p className='text-green-500 text-2xl'> {successMessege}</p>
