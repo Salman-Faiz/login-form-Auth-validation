@@ -9,12 +9,12 @@ const Login = () => {
     }
     return (
        <div className="container mx-auto">
-         <div className="border mt-40 bg-green-200 rounded-lg ps-40">
+         <div className="border mt-40 bg-green-200 rounded-lg ps-40 ">
             <h3 className="pt-8  text-3xl font-semibold">Please login</h3>
            <form  className="py-10" onSubmit={handleFormSubmit}>
            
-            <input className="border text-2xl px-4 py-2 rounded-md mb-5" type="email" name="email" id="" placeholder="Email" /> <br />
-            <input className="border text-2xl px-4 py-2 rounded-md" type="password" name="password" id="" placeholder="password" /> <br />
+            <input className="border text-2xl px-4 py-2 rounded-md mb-5 w-2/3" type="email" name="email" id="" placeholder="Email" /> <br />
+            <input className="border text-2xl px-4 py-2 rounded-md w-2/3" type="password" name="password" id="" placeholder="password" /> <br />
             <p className="py-4 text-red-700">forget password??</p>
             <input className="border btn btn-primary text-2xl" type="submit" value="submit" />
            </form>
