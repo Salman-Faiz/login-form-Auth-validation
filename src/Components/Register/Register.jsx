@@ -1,9 +1,12 @@
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase/firebase.config';
 
 const Register = () => {
+  // declare state to catch existing user/error
+  const [existingEmailError, setExistingEmailError] = useState('')
+  const [successMessege, setSuccessMessege] = useState('')
   const handleRegister = e => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -11,21 +14,29 @@ const Register = () => {
     const password = e.target.password.value;
 
     console.log(email, password);
-   
 
+    // reset error
+  setExistingEmailError('');
+  // reset success messege
+  setSuccessMessege('');
+
+    // create user using firebase
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed up 
-      const user = userCredential.user;
-      console.log(user);
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error(errorMessage)
-      // ..
-    });
+      .then((userCredential) => {
+        // Signed up 
+        const user = userCredential.user;
+        console.log(user);
+        setSuccessMessege('Successfully registered')
+
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error(errorMessage)
+        setExistingEmailError(errorMessage);
+        // ..
+      });
   }
   return (
 
@@ -37,8 +48,18 @@ const Register = () => {
           <input className="border text-2xl px-4 py-2 rounded-md" type="email" name="email" placeholder="Email" /> <br />
           <input className="border text-2xl px-4 py-2 rounded-md" type="password" name="password" placeholder="password" /> <br />
           <input className="border btn btn-primary text-2xl" type="submit" value="submit" />
+
+
         </form>
-        <p className='py-4 text-red-600'>Already have an account?? Please go to <Link className='font-bold text-black text-xl' to={'/login'}>Login</Link></p>
+        {
+          existingEmailError && <p className='text-red-700 text-2xl'>{existingEmailError}</p>
+        }
+        {
+          successMessege && <p className='text-green-500 text-2xl'> {successMessege}</p>
+        }
+
+
+        <p className='py-4 text-green-600 text-2xl font-bold'>Already have an account?? Please go to <Link className='font-bold text-black text-xl' to={'/login'}>Login</Link></p>
       </div>
 
     </div>
