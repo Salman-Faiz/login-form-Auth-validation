@@ -40,7 +40,7 @@ const Register = () => {
       setRegisterError('Use at least one UPPER case character ')
       return;
     }
-    else if(!ConditionAndTerms){
+    else if (!ConditionAndTerms) {
       setRegisterError('please accepted our terms and conditions')
       return;
     }
@@ -77,24 +77,24 @@ const Register = () => {
           <input className="border text-2xl px-4 py-2 rounded-md w-full" type="text" name='name' placeholder='Name' /><br />
           <input className="border text-2xl px-4 py-2 rounded-md w-full" type="email" name="email" placeholder="Email" required /> <br />
           <div className='relative '>
-          <input className="border text-2xl px-4 py-2 rounded-md w-full"
-            type={showPassword ? 'text' : 'password'}
-            name="password"
-            placeholder="password"
-            required />
-          <span className=' absolute top-5 right-4' onClick={() => { setShowPassword(!showPassword) }}>
-            {
+            <input className="border text-2xl px-4 py-2 rounded-md w-full"
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              placeholder="password"
+              required />
+            <span className=' absolute top-5 right-4' onClick={() => { setShowPassword(!showPassword) }}>
+              {
 
-              showPassword ? <FaEyeSlash className="w-6 h-5"></FaEyeSlash> : <FaEye className="w-6 h-5"></FaEye>
-            }
+                showPassword ? <FaEyeSlash className="w-6 h-5"></FaEyeSlash> : <FaEye className="w-6 h-5"></FaEye>
+              }
 
-          </span>
-            
-            </div>
-            <div className='text-xl font-bold'>
-              <input className='w-6 h-5 rounded-xl'  type="checkbox" name="terms" id="" />
-              <label htmlFor="terms"> Please accept our <span className='underline'><a href="">terms and conditions</a></span></label>
-            </div>
+            </span>
+
+          </div>
+          <div className='text-xl font-bold'>
+            <input className='w-6 h-5 rounded-xl' type="checkbox" name="terms" id="" />
+            <label htmlFor="terms"> Please accept our <span className='underline'><a href="">terms and conditions</a></span></label>
+          </div>
           <input className="border btn btn-primary text-2xl" type="submit" value="submit" />
 
 
