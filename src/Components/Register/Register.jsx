@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase/firebase.config';
@@ -9,8 +9,11 @@ const Register = () => {
   // declare state to catch existing user/error
   const [registerError, setRegisterError] = useState('')
   const [successMessege, setSuccessMessege] = useState('')
-  // state declared for show password
+
+// state declared for show password
   const [showPassword, setShowPassword] = useState(false)
+
+
   const handleRegister = e => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -54,7 +57,13 @@ const Register = () => {
         // Signed up 
         const user = userCredential.user;
         console.log(user);
-        setSuccessMessege('Successfully registered')
+        // setSuccessMessege('Successfully registered')
+
+        sendEmailVerification(user)
+        .then(()=>{
+          setSuccessMessege('Account created successfully .... please check your email to verify your account')
+        })
+        
 
         // ...
       })

@@ -31,7 +31,13 @@ const Login = () => {
                 // Signed in 
                 const user = userCredential.user;
                 console.log('logged in')
-                setSuccessMessege('welcome to our world')
+                // setSuccessMessege('welcome to our world')
+                if(userCredential.user.emailVerified){
+                    setSuccessMessege('welcome to our world')
+                }
+                else{
+                    setLoginError('please go to your email to verify your account')
+                }
             })
             .catch((error) => {
                 const errorCode = error.code;
