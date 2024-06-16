@@ -8,22 +8,34 @@ import { useState } from "react";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [successMessege, setSuccessMessege] = useState('');
+    const [loginError, setLoginError] = useState('');
+
+
     const handleFormSubmit = e => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email, password)
 
+
+        // reset error
+        setLoginError('');
+        // reset success messege
+        setSuccessMessege('');
+
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
                 console.log('logged in')
+                setSuccessMessege('welcome to our world')
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorMessage)
+                setLoginError(errorMessage)
             });
     }
     return (
@@ -51,7 +63,13 @@ const Login = () => {
                     <p className="py-4 text-red-700 text-xl">Forget password??</p>
                     <input className="border btn btn-primary text-2xl" type="submit" value="submit" />
                 </form>
-                <p className='py-4 text-blue-900 text-xl'>New Here?? Please create an Account first  <Link className='font-bold text-black text-xl' to={'/register'}>Register Now</Link></p>
+                {
+                    successMessege && <p className='text-green-500 text-2xl'> {successMessege}</p>
+                }
+                {
+                    loginError && <p className="text-2xl text-red-500">{loginError}</p>
+                }
+                <p className='py-3 text-blue-900 text-xl'>New Here?? Please create an Account first  <Link className='font-bold text-black text-xl' to={'/register'}>Register Now</Link></p>
             </div>
         </div>
     );
