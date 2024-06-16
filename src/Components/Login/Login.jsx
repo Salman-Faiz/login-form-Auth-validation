@@ -9,7 +9,7 @@ const Login = () => {
     }
     return (
        <div className="container mx-auto">
-         <div className="border mt-40 bg-green-200 rounded-lg text-center">
+         <div className="border mt-40 bg-green-200 rounded-lg ps-40">
             <h3 className="pt-8  text-3xl font-semibold">Please login</h3>
            <form  className="py-10" onSubmit={handleFormSubmit}>
            
