@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, updateProfile } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase/firebase.config';
@@ -58,10 +58,21 @@ const Register = () => {
         const user = userCredential.user;
         console.log(user);
         // setSuccessMessege('Successfully registered')
-
+        // update profile name /photo and rest
+        updateProfile(userCredential.user,{
+          displayName:name
+        })
+        .then(()=>{
+          alert('profile updated')
+        })
+        .catch(error =>{
+          setRegisterError(error.message)
+        })
+// send email to verify account.........
         sendEmailVerification(user)
         .then(()=>{
-          setSuccessMessege('Account created successfully .... please check your email to verify your account')
+          setSuccessMessege('Account created successfully .')
+          alert('please check your email to verify your account')
         })
         
 
